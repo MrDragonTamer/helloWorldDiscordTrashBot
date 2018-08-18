@@ -20,6 +20,7 @@ public class instantHumorContains {
     }
 
     public void run(MessageCreateEvent event) {
+        // Parse message here so you don't have to later
         TextChannel channel = event.getChannel();
         org.javacord.api.entity.message.Message message = event.getMessage();
         String messageToString = message.getContent().toLowerCase();
@@ -27,10 +28,28 @@ public class instantHumorContains {
         for (String keyPhrase: keyPhrases.keySet()) {
             if(messageToString.contains(keyPhrase)) {
                 if (messageToString.contains("good work, trashbot")) {
-                    channel.sendMessage("thx man");
+                    String[] goodWorkMessages = {"thx man", "i appreciate it", "np", "no problem aye", "thx man", "thx man"};
+                    channel.sendMessage(pickString(goodWorkMessages));
+                } else if (messageToString.contains("trashbot") || messageToString.contains("<@450507364768940034>")) {
+                    String[] trashbotMessages = {"you called?", "that's me!", "what's up", "i heard my name...", "you called?"
+                            , "you called?", "you called?"};
+                    channel.sendMessage(pickString(trashbotMessages));
                 } else {
                     channel.sendMessage(keyPhrases.get(keyPhrase));
                 }
+            }
+        }
+        if (messageToString.contains("black")) {
+            if (message.getServer().get().getId() == 141643881723723777L) {
+                if ((int) (Math.random() * 4) == 1) {
+                    System.out.println("random chance achieved");
+                    channel.sendMessage("why you gotta make it a race thing");
+                } else {
+                    System.out.println("no dice, with rice 9/10");
+                }
+            } else {
+                System.out.println("this channel is not the witness");
+                channel.sendMessage("why you gotta make it a race thing");
             }
         }
     }
@@ -64,7 +83,7 @@ public class instantHumorContains {
             hasAnyContent = false;
         }
 
-        // Loops until it reaches the escape sequece
+        // Loops until it reaches the escape sequence
         while(hasAnyContent && !key.equals("***")) {
             value = in.nextLine();
             in.nextLine();
@@ -93,5 +112,10 @@ public class instantHumorContains {
         out.println("\n***");
         keyPhrases.put(key, value);
         out.close();
+    }
+
+    private static String pickString(String[] set) {
+        int rand = (int)(Math.random()*(set.length-1));
+        return set[rand];
     }
 }

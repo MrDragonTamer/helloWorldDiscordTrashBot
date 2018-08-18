@@ -20,6 +20,7 @@ public class instantHumorEquals {
     }
 
     public void run(MessageCreateEvent event) {
+        // Parse message here so you don't have to later
         TextChannel channel = event.getChannel();
         org.javacord.api.entity.message.Message message = event.getMessage();
         String messageToString = message.getContent().toLowerCase();
@@ -31,8 +32,9 @@ public class instantHumorEquals {
                         botWaitLong();
                         channel.sendMessage("That's fucked.");
                     }
-                }
-                else {
+                } else if (message.getAuthor().getId() == 473760382616600597L && messageToString.equals("shut the fuck up")) {
+                    channel.sendMessage("what the fuck is your problem?");
+                } else {
                     channel.sendMessage(keyPhrases.get(keyPhrase));
                 }
             }
