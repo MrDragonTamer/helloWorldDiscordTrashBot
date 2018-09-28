@@ -1,0 +1,5 @@
+//Replaced compile dependency with implementation as compile was depreceated.
+
+//Implimented fallback logger
+Started Implimenting log4j2 as a customizable primary logger.
+Created basic log4j2 config file and placed log4j2.xml in src/main/resources

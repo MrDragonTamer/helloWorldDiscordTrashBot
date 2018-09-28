@@ -1,15 +1,24 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.Reaction;
 import org.javacord.api.util.logging.ExceptionLogger;
-import java.lang.management.RuntimeMXBean;
+
+import java.io.FileNotFoundException;
 import java.lang.management.ManagementFactory;
-import java.io.*;
+import java.lang.management.RuntimeMXBean;
 import java.util.Scanner;
 import java.util.Set;
 
+//import org.javacord.api.util.logging.FallbackLoggerConfiguration;
+
 public class trashbotBoot {
+
+    //inialize trashbotBoot class logger
+    private static final Logger logger = LogManager.getLogger("trashbotBoot");
+
     // The token that the bot uses to communicate with Discord
     private static String token = "";
 
@@ -25,11 +34,17 @@ public class trashbotBoot {
     private static TodoModule todoModule = new TodoModule("data" + fileSep + "todoList.dat");
     private static HelpModule helpModule = new HelpModule("data" + fileSep + "helpList.dat");
     private static SpeakModule speakModule = new SpeakModule("data" + fileSep + "speakList.dat");
-
     // Trashbot's user ID; this should be changed if this library is being used for a different bot.
     private static final long selfID = 450507364768940034L;
 
     public static void main(String[] args) throws FileNotFoundException  {
+
+
+        //initalize primary logger.  NOTE THIS DOES NOT APPEAR TO BE THE PREFERRED WAY TO CREATE A LOGGER (it appears to be preferred to make a logger for each class
+        logger.info("informationalLogger inialized");  //Put loggers in logger.class? causes error if build outside method, but should most likely inialize before main begins running
+        //Initialize fallback logger
+        //FallbackLoggerConfiguration.setDebug(true);
+
         // Scanner object for reading system input
         Scanner reader = new Scanner(System.in);
         // RuntimeMXBean object for reporting system uptime

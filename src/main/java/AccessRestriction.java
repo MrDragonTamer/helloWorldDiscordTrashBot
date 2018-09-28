@@ -1,3 +1,6 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -5,10 +8,12 @@ import java.util.*;
 
 public class AccessRestriction {
     private static File file;
-
     private static HashMap<String, Set<String>> permissions = new HashMap<>();
 
+    private static final Logger logger = LogManager.getLogger(Thread.currentThread().getStackTrace());
+
     public AccessRestriction(String filename) {
+        logger.trace("Constructing AccessRestriction...");
         file = new File(filename);
     }
 
